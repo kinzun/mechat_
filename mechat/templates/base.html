@@ -1,0 +1,54 @@
+<html>
+<head>
+    {% block head %}
+        <title>{% block title %}{% block page_title %}{% endblock %} - CatChat{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ url_for('static', filename='hh.png') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='dist/semantic.min.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+
+
+{% block nav %}
+    <div class="ui top fixed borderless menu">
+        <a class="item catchat" href="/">
+            <img src="/static/jqm.jpg">
+            <span id="chat_clo">Chat</span>
+        </a>
+
+
+        <div class="right">
+            <div class="">
+                <h6>Websocket chat
+                    <small class="connecting_status">disconnected</small>
+                </h6>
+            </div>
+        </div>
+        <div class="right menu hide-on-mobile">
+            <div class="item">
+                <a class="ui primary button" href="/login">
+                    Sign in</a>
+            </div>
+            <a class="item" id="toggle-sidebar">
+                <i class="sidebar icon"></i>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block content %}{% endblock %}
+
+
+</body>
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+{% block scripts %}
+
+{% endblock %}
+
+</html>

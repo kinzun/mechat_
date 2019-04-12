@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %} Chat {% endblock %}
+
+{% block content %}
+    <div class="pusher">
+        <div class="chat-box">
+            {#            <div class="messages">#}
+            <div class="message_pane messages_box">
+                {% include 'chat/_messages.html' %}
+            </div>
+        </div>
+
+
+        <div id="table_me">
+            <div class="item" style="margin-left: 20px">
+                <div class="ui label black basic" title="Online users">
+                    <i class="user icon"></i> <span id="user-count">1</span> / 10
+                </div>
+            </div>
+            <table class="ui celled tabled">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody class="connected_clients">
+                {#                <tr class="connected_clients">#}
+                {#                    <td>fsdf</td>#}
+                {#                </tr>#}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="input-area">
+            <div class="ui grid">
+                <div class="row">
+                    <div class="ten wide column">
+                        {% if  certification %}
+                            <div class="ui floating message">Please <a href="/login">Sign in</a> or
+                                <a href="/register">Sign up</a> to send message.
+                            </div>
+                        {% else %}
+                            <img class="pop-card input-avatar" data-position="bottom left" data-href="/profile/52"
+                                 src="{{ url_for('static', filename='huhu.jpg') }}">
+                            {#                            <textarea rows="3 " id="message-textarea"#}
+                            {#                                      placeholder="Write your message here... Enter to send"></textarea>#}
+                            <div class="ui action input" style="margin-left: 70px">
+                                <input type="text" placeholder="name" class="nickname" id="nickname" value="unknown"
+                                       style="width: 240px">
+                                <button class="ui teal right labeled icon button change_nickname">
+                                    <i class="cube icon"></i>
+                                    change_name
+                                </button>
+                            </div>
+                            <div class="ui fluid action input" style="margin-left: 70px">
+                                {#                                <input type="text" placeholder="name" class="nickname">#}
+                                <textarea rows="4" id="message" class="message" style="width: 300px;"
+                                          placeholder="Write your message here... Enter to send"></textarea>
+                                <button class="ui teal right labeled icon button send_message" id="send_btn">
+                                    <i class="paper plane icon"></i>Send
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="two wide column right floated " style="margin-top: 20px">
+                        <p>Written by <a href="http://greyli.com">Grey Li</a><br>
+                            Fork me on <a href="https://github.com/greyli/catchat">Github</a><br>
+                            2019 © <a href="https://helloflask.com">helloflask.com</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {#    <p>#}
+    {#    <div id="chat_list"> 12312dfsfsdfsdffsd#}
+    {#    </div>#}
+    {#    </p>#}
+    {##}
+
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}
+

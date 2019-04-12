@@ -1,0 +1,18 @@
+<div class="msg-box">
+    <div class="picture">
+        <img class="pop-card" data-position="right center" data-offset="-40" data-href="/profile/30"
+             src=
+                     {% if message.the_robot %}
+                         {{ url_for('static', filename='jqm.jpg') }}
+                     {% else %}
+                         {{ url_for('static', filename='huhu.jpg') }}
+                     {% endif %}>
+    </div>
+    <div class="msg">
+        <span id="nickname2">{{ message.nickname }}</span>
+        <small class="timestamp"><span>{{ message.cur_time }}</span>
+        </small>
+        {#        <span class="message-body" id="message_re">{{ message.message|safe }}</span>#}
+        <span class="message-body" id="message_re">{{ message.message }}</span>
+    </div>
+</div>

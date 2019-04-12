@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %} Chat {% endblock %}
+
+{% block content %}
+    <div class="pusher">
+        <div class="chat-box">
+            <div class="messages">
+{#                {% include 'chat/_messages.html' %}#}
+            </div>
+        </div>
+        <div class="input-area">
+            <div class="ui grid">
+                <div class="row">
+                    <div class="ten wide column">
+                        {% if  certification %}
+                            <div class="ui floating message">Please <a href="/login">Sign in</a> or
+                                <a href="/register">Sign up</a> to send message.
+                            </div>
+                        {% else %}
+                            <img class="pop-card input-avatar" data-position="bottom left" data-href="/profile/52"
+                                 src="https://gravatar.com/avatar/a6838ee49fd0041e871074663434e427?d=monsterid">
+                            {#                            <textarea rows="3 " id="message-textarea"#}
+                            {#                                      placeholder="Write your message here... Enter to send"></textarea>#}
+                            <div class="ui fluid action input" style="margin-left: 35px">
+                                {#                                <input type="text" placeholder="Write your message here... Enter to send">#}
+                                <textarea rows="4" id="message-textarea" style="width: 300px;"
+                                          placeholder="Write your message here... Enter to send"></textarea>
+                                <button class="ui teal right labeled icon button" id="send_btn">
+                                    <i class="paper plane icon"></i>Send
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="two wide column right floated ">
+                        <p>Written by <a href="http://greyli.com">Grey Li</a><br>
+                            Fork me on <a href="https://github.com/greyli/catchat">Github</a><br>
+                            2017 © <a href="https://helloflask.com">helloflask.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {#    <p>#}
+    {#    <div id="chat_list"> 12312dfsfsdfsdffsd#}
+    {#    </div>#}
+    {#    </p>#}
+    {##}
+
+{% endblock %}
+
+
+{% block scripts %}
+    <script type="text/javascript">
+        var ws = new WebSocket("ws://127.0.0.1:5000/chat");
+
+        ws.onmessage = function (messageEvent) {
+            alert(messageEvent.data)
+            console.log(messageEvent.data);
+            var ptag = document.createElement("p");
+            ptag.innerText = messageEvent.data;
+            document.getElementById("chat_list").appendChild(ptag);
+        };
+
+
+        ws.onopen = function () {
+            /* 与服务器端连接成功后，自动执行 */
+            var newTag = document.createElement('div');
+            newTag.innerHTML = "【连接成功】";
+            document.getElementById('content').appendChild(newTag);
+        };
+
+
+        // document.getElementById("send_btn").addEventListener("onclick",)
+        function send() {
+            {#var send_str = document.getElementById("message-textarea").value;#}
+            var $textarea = $('#message-textarea');
+            var message_body = $textarea.val().trim();
+            ws.send(message_body);
+            $textarea.val('');
+            {#ws.send(send_str);#}
+        }
+
+        $('#send_btn').click(function () {
+            send()
+        })
+
+    </script>
+
+
+
+
+{% endblock %}
+
+{##}
+{#<div class="msg-box">#}
+{#    <div class="picture">#}
+{#        <img class="pop-card" data-position="right center" data-offset="-40" data-href="/profile/30"#}
+{#             src="https://gravatar.com/avatar/df846c262a1c10f95923d3bad6a72fe0?d=monsterid">#}
+{#    </div>#}
+{#    <div class="msg">#}
+{#        <span class="nickname">{{ message.nickname }}</span>#}
+{#        <small class="timestamp"><span class="" data-timestamp="2019-02-22T16:04:42Z"#}
+{#                                       data-format="format('lll')" data-refresh="0"#}
+{#                                       style="">Feb 23, 2019 12:04 AM</span>#}
+{#        </small>#}
+{#        <span class="message-body" id="message_re">{{ message.body|safe }}</span>#}
+{#    </div>#}
+{#</div>#}
